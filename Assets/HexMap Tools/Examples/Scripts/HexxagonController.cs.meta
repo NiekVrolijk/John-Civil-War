@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6cdd4d8337bc44a48bc2619c6af32114
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 121179
+  packageName: HexMap Tools
+  packageVersion: 1.1.1
+  assetPath: Assets/HexMap Tools/Examples/Scripts/HexxagonController.cs
+  uploadId: 280231

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7f1ef9ea4abe89b4b9b2d66ca1ec5a3b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 121179
+  packageName: HexMap Tools
+  packageVersion: 1.1.1
+  assetPath: Assets/HexMap Tools/Scripts/HexUtility.cs
+  uploadId: 280231
