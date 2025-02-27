@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 57979df92d499bf41a6904311e9ab643
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 121179
+  packageName: HexMap Tools
+  packageVersion: 1.1.1
+  assetPath: Assets/HexMap Tools/Examples/Scripts/Cell.cs
+  uploadId: 280231

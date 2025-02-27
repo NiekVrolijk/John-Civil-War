@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cc1e3ba1cb4916544a69dd4ae504f234
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 121179
+  packageName: HexMap Tools
+  packageVersion: 1.1.1
+  assetPath: Assets/HexMap Tools/Examples/Hexxagon.unity
+  uploadId: 280231
