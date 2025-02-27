@@ -5,11 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public void Play() 
     {
