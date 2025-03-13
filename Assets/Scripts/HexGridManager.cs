@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class HexGridManager : MonoBehaviour
 {
-    public float hexSize = 1f;  // Adjust based on your Tilemap settings
-    public LayerMask unitLayer; // Assign in Unity: Only detect Units
+    public float hexSize = 1f;
+    public LayerMask unitLayer;
     public int maxMoveRange = 3;
 
     private UnitScript selectedUnit;
-    private HashSet<Vector2Int> occupiedTiles = new(); // Tracks occupied hexes
-    private List<Vector2Int> validMoveTiles = new();   // Stores valid move positions
+    private HashSet<Vector2Int> occupiedTiles = new();
+    private List<Vector2Int> validMoveTiles = new();
 
     // Pointy-Top Hex Directions (Axial)
     private readonly Vector2Int[] hexDirections = {
@@ -25,43 +25,45 @@ public class HexGridManager : MonoBehaviour
 
             if (selectedUnit == null)
                 TrySelectUnit(hexClicked);
-            else 
+            else
                 TryMoveUnit(hexClicked);
         }
     }
 
-    // 📌 Select a unit if one is clicked
     private void TrySelectUnit(Vector2Int hexPosition)
     {
         Collider2D hit = Physics2D.OverlapPoint(HexToWorld(hexPosition), unitLayer);
         if (hit != null)
         {
+            if (selectedUnit != null)
+                selectedUnit.SetSelected(false); // Deselect previous unit
+
             selectedUnit = hit.GetComponent<UnitScript>();
             if (selectedUnit != null)
             {
+                selectedUnit.SetSelected(true);
                 validMoveTiles = GetValidMoves(selectedUnit.hexPosition, maxMoveRange);
                 HighlightTiles(validMoveTiles, true);
             }
         }
     }
 
-    // 📌 Try to move the selected unit
     private void TryMoveUnit(Vector2Int targetHex)
     {
         if (selectedUnit != null && validMoveTiles.Contains(targetHex) && !occupiedTiles.Contains(targetHex))
         {
-            occupiedTiles.Remove(selectedUnit.hexPosition); // Free old tile
-            occupiedTiles.Add(targetHex); // Mark new tile as occupied
+            occupiedTiles.Remove(selectedUnit.hexPosition);
+            occupiedTiles.Add(targetHex);
 
             selectedUnit.hexPosition = targetHex;
             selectedUnit.transform.position = HexToWorld(targetHex);
 
             HighlightTiles(validMoveTiles, false);
-            selectedUnit = null; // Deselect unit after moving
+            selectedUnit.SetSelected(false);
+            selectedUnit = null;
         }
     }
 
-    // 📌 Get valid move positions using BFS (Flood-Fill)
     private List<Vector2Int> GetValidMoves(Vector2Int startHex, int maxMove)
     {
         List<Vector2Int> validMoves = new();
@@ -91,7 +93,6 @@ public class HexGridManager : MonoBehaviour
         return validMoves;
     }
 
-    // 📌 Get Hex Neighbors
     private List<Vector2Int> GetNeighbors(Vector2Int hex)
     {
         List<Vector2Int> neighbors = new();
@@ -102,23 +103,20 @@ public class HexGridManager : MonoBehaviour
         return neighbors;
     }
 
-    // 📌 Convert Hex to World Position (Pointy-Top)
     private Vector2 HexToWorld(Vector2Int hex)
     {
-        float x = hexSize * (Mathf.Sqrt(3) * hex.x + Mathf.Sqrt(3) / 2 * hex.y);
-        float y = hexSize * (3.0f / 2.0f * hex.y);
+        float x = hexSize * Mathf.Sqrt(3) * (hex.x + 0.5f * hex.y);
+        float y = hexSize * 1.5f * hex.y;
         return new Vector2(x, y);
     }
 
-    // 📌 Convert World Position to Hex Coordinates
     private Vector2Int WorldToHex(Vector2 worldPos)
     {
         float q = (Mathf.Sqrt(3) / 3 * worldPos.x - 1.0f / 3 * worldPos.y) / hexSize;
         float r = (2.0f / 3 * worldPos.y) / hexSize;
         return HexRound(q, r);
     }
-    
-    // 📌 Round floating hex coords to nearest axial coordinates
+
     private Vector2Int HexRound(float q, float r)
     {
         float s = -q - r;
@@ -136,7 +134,6 @@ public class HexGridManager : MonoBehaviour
         return new Vector2Int(rq, rr);
     }
 
-    // 📌 (Optional) Highlight Movement Range
     private void HighlightTiles(List<Vector2Int> tiles, bool show)
     {
         foreach (var tile in tiles)

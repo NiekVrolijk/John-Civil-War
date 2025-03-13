@@ -1,9 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitScript : MonoBehaviour
 {
-    public Vector2Int hexPosition; // The unit's position in hex coordinates
+    public Vector2Int hexPosition;
 
+    public void SetSelected(bool isSelected)
+    {
+        GetComponent<SpriteRenderer>().color = isSelected ? Color.yellow : Color.white;
+    }
 }
